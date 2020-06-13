@@ -1,0 +1,73 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix gn: <http://geonames.org/> .
+@prefix wb: <http://worldbank.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix wikidata: <https://www.wikidata.org/wiki/> . 
+@prefix cofossil: <https://datahub.io/core/co2-fossil-by-nation/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@base <http://geonames.org/> .
+
+
+<TriplesMapGeonames>
+  a rr:TriplesMap;
+
+  # Define the data source (file location)
+  rml:logicalSource [
+    rml:source "fossil-fuel-co2-emissions-by-nation_csv.csv";
+    rml:referenceFormulation ql:CSV
+  ];
+
+  # Define the subject of the generated statements
+  rr:subjectMap [ rr:template "https://datahub.io/core/co2-fossil-by-nation/{Year}/{Country}" ;
+    rr:class wikidata:Q12748 ];
+
+  # Map the country name to rdfs:label
+  rr:predicateObjectMap [ 
+    rr:predicate vcard:country-name ;
+    rr:objectMap [ rml:reference "Country" ]
+  ] ;
+
+  # Define the object of the population property as an integer
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:fuelConsumption ;
+    rr:objectMap [ rml:reference "Total" ; rr:datatype xsd:integer ]
+  ] ;
+  
+  # Define the object of the population property as an integer
+  rr:predicateObjectMap [ 
+    rr:predicate time:year ;
+    rr:objectMap [ rml:reference "Year" ; rr:datatype xsd:integer ]
+  ] ;
+  
+  # Define the object of the population property as an integer
+  rr:predicateObjectMap [ 
+    rr:predicate wikidata:Q1408429 ;
+    rr:objectMap [ rml:reference "Solid Fuel" ; rr:datatype xsd:integer ]
+  ] ;
+  
+    # Define the object of the population property as an integer
+  rr:predicateObjectMap [ 
+    rr:predicate wikidata:Q1386534 ;
+    rr:objectMap [ rml:reference "Liquid Fuel" ; rr:datatype xsd:integer ]
+  ] ;
+  
+      # Define the object of the population property as an integer
+  rr:predicateObjectMap [ 
+    rr:predicate wikidata:Q45190 ;
+    rr:objectMap [ rml:reference "Cement" ; rr:datatype xsd:integer ]
+  ] ;
+  
+  # Define the object of the population property as an integer
+  rr:predicateObjectMap [ 
+    rr:predicate wikidata:Q54913882 ;
+    rr:objectMap [ rml:reference "Gas Flaring" ; rr:datatype xsd:integer ]
+  ] .
+
